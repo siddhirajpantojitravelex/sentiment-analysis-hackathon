@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser')
-const helloRouter = require('./router/hello-route')
+const helloRouter = require('./router/hello-route');
+const sentimentRouter = require('./router/sentimentRoute')
 let app = express();
 app.use(bodyParser.json());
-app.use("/",helloRouter);
+app.use("/",sentimentRouter);
 app.use("*",(req,res,next)=>{
     let err = {
         status:404,
