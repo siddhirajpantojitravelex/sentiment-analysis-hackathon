@@ -32,6 +32,7 @@ async function sentimentService(sentiment_info) {
  * 5. Call this method in Set Interval of 1 min from server.js or from anywhere 
  */
 async function sentimentUpdater(){
+    //console.log("In Function ");
     try {
         let fetchedData = await sentimentDao.getSentimentsToProcess();
         for (let index = 0; index < fetchedData.length; index++) {
@@ -55,10 +56,13 @@ async function sentimentUpdater(){
         
     }
     catch (err) {
-        console.log("TCL: sentimentUpdater -> err", err);
+        console.log("sentimentUpdater -> err", err);
     }
 }
-setInterval(sentimentUpdater,10000);
+
+setInterval(sentimentUpdater,5000);
+//setTimeout(sentimentUpdater, 1000);
+
 module.exports = {
     sentimentService
 }
