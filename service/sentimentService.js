@@ -60,7 +60,7 @@ async function sentimentUpdater(){
     }
 }
 
-setInterval(sentimentUpdater,5000);
+//setInterval(sentimentUpdater,5000); //this needs to be uncommented - William
 //setTimeout(sentimentUpdater, 1000);
 
 module.exports = {
