@@ -1,4 +1,4 @@
-const service = require('../service/sentimentService')
+const service = require('../service/sentimentService');
 
 async function sentimentController(req, res, next) {
     try {

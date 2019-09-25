@@ -13,23 +13,53 @@ async function insertIntoSentimentTable(sentiment_info) {
                         if (err) {
                             reject(err)
                         }
-                        else{
+                        else {
                             resolve(data.rows);
                         }
                     })
                 }
-                
+
             }
         })
 
     })
 }
 /**
- * Function to get array of 
+ * Function to get array of sentiments to be sent to google for analysis
  */
-async function getSentimentToCheck(){
+async function getSentimentsToProcess() {
+    return new Promise((resolve, reject) => {
+        db.query(queries.SENTIMENT.SELECT_BY_EMPTY_DESCRIPTION_MAG, (err, data) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("TCL: getSentimentToProcess -> data", data.rows)
+                resolve(data.rows);
+            }
+        })
 
+    })
 }
+
+/**
+ * Function to update array of sentiments based on the values recieved from google analysis
+ */
+async function updateSentiments(sentiment_info) {
+    return new Promise((resolve, reject) => {
+        db.query(queries.SENTIMENT.UPDATE, [sentiment_info.review_id, sentiment_info.description_value, sentiment_info.description_magnitude, sentiment_info.pros_value, sentiment_info.pros_magnitude, sentiment_info.cons_value, sentiment_info.cons_magnitude, sentiment_info.result], (err, data) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log("TCL: updateSentiments -> data", data.rows)
+                resolve(data.rows);
+            }
+        })
+
+    })
+}
+
 module.exports = {
-    insertIntoSentimentTable
+    insertIntoSentimentTable, getSentimentsToProcess, updateSentiments
 }
