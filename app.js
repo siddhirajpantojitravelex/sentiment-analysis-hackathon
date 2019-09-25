@@ -2,9 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const helloRouter = require('./router/hello-route');
 const sentimentRouter = require('./router/sentimentRoute')
+const path = require('path')
 let app = express();
 app.use(bodyParser.json());
-app.use("/",sentimentRouter);
+app.use("/html",express.static(path.join(__dirname,path.sep,"public")))
+app.use("/",helloRouter);
+app.use("/sentiment",sentimentRouter);
 app.use("*",(req,res,next)=>{
     let err = {
         status:404,
