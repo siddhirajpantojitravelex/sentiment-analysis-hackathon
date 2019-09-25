@@ -57,6 +57,9 @@ async function sentimentUpdater(){
     }
 }
 setInterval(sentimentUpdater,10000);
+function saveReviewArray(arrData){
+    
+}
 module.exports = {
     sentimentService
 }

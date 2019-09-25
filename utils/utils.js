@@ -39,6 +39,21 @@ Utils.prototype.getUrls = function (callback, callback2) {
                 base.urls = urls;
                 callback(urls);
             }
+            else if(page.url.match('https://www.glassdoor.co.in/Reviews/Travelex-Reviews-E23898_P4.htm')){
+                urls.push({ url: page.url, content: page.content })
+                base.urls = urls;
+                callback(urls);
+            }
+            else if(page.url.match('https://www.glassdoor.co.in/Reviews/Travelex-Reviews-E23898_P5.htm')){
+                urls.push({ url: page.url, content: page.content })
+                base.urls = urls;
+                callback(urls);
+            }
+            else if(page.url.match('https://www.glassdoor.co.in/Reviews/Travelex-Reviews-E23898_P6.htm')){
+                urls.push({ url: page.url, content: page.content })
+                base.urls = urls;
+                callback(urls);
+            }
         },
         failure: function (page) {
             // console.log(page.status);
@@ -126,9 +141,10 @@ Utils.prototype.process = function (callback) {
         }
         const dom = htmlparser2.parseDOM(data.toString(), options);
         let $ = cheerio.load(dom)
+        console.log("Loaded html")
         let reviews = $('#ReviewsRef #ReviewsFeed .empReviews').attr('li', 'empReview cf').toArray();
         base.fetchElement(reviews, 0, record => { }, complete => {
-            //console.log('Fetching completed from the page.')
+           // console.log('Fetching completed from the page.')
         })
         base.processRawData(done => {
             console.log('Data processed')
@@ -136,7 +152,7 @@ Utils.prototype.process = function (callback) {
         });
     }, (error, success) => {
         if (error) {
-            //console.log('Error Code', error)
+            console.log('Error Code', error)
         }
         else {
             console.log('Processing completed', success)
