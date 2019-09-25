@@ -1,5 +1,7 @@
 const sentimentDao = require('../dao/sentimentDao');
 
+const googleapi = require('../service/google-api-service');
+
 
 async function sentimentService(sentiment_info) {
     var result;
@@ -20,16 +22,6 @@ async function sentimentService(sentiment_info) {
     }
 }
 
-async function getSentimentsToProcess() {
-    var result;
-    try {
-        return await sentimentDao.getSentimentsToProcess();
-    }
-    catch (err) {
-        console.error("Error Occured while connecting database ", err)
-    }
-}
-
 
 /**
  * Atul and William 
@@ -41,12 +33,20 @@ async function getSentimentsToProcess() {
  */
 async function sentimentUpdater(){
     try {
-        let fetchedData = await service.getSentimentsToProcess();
+        let fetchedData = await sentimentDao.getSentimentsToProcess();
         fetchedData.forEach(singleData => {
             let dataFromGoogle = await googleapi.getValueForReview(singleData);
             let udpateJson = {
                 "reviewId": singleData.reviewId,
-                // Add other props here 
+                "description_value": singleData.description_value,
+                "description_magnitude": singleData.description_magnitude,
+                "pros_value": singleData.pros_value,
+                "pros_magnitude": singleData.pros_magnitude,
+                "cons_value": singleData.cons_value,
+                "cons_magnitude": singleData.cons_magnitude,
+                "result": ((singleData.description_value * singleData.description_magnitude) 
+                    + (singleData.pros_value * singleData.pros_magnitude) 
+                    + (singleData.cons_value * singleData.cons_magnitude))
             }
             //update with the value
             let updateResult = await sentimentDao.updateSentiments(udpateJson);
