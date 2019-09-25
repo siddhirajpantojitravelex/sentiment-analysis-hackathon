@@ -23,13 +23,13 @@ async function innerChartService(classification_description) {
     var result;
     try {
         result = await chartDao.getInnerGraphData(classification_description);
-        //console.log("TCL: innerChartService -> result", result)
+        let percent = calculatePercentage(result)
         let innerChartJson = [];
-        for (let index = 0; index < result.length; index++) {
-            const element = result[index];
-            innerChartJson.push({ "sentiment": element.category, "value": element.cnt })
+        for (let index = 0; index < percent.length; index++) {
+            const element = percent[index];
+            innerChartJson.push({ "sentiment": element.category, "value": element.percentage })
         }
-        console.log("TCL: innerChartService -> result", innerChartJson)
+        console.log("TCL: innerChartService -> percent", innerChartJson)
         
         return innerChartJson
     }
@@ -43,19 +43,19 @@ async function innerChartService(classification_description) {
     }
 }
 
-function calculatePercentage(mainChartResult){
+function calculatePercentage(data){
     let sum = 0.0;
     
     //for loop to fetch the total value
-    for (let i = 0; i < mainChartResult.length; i++) {
-        sum += (mainChartResult[i].value * 1);
+    for (let i = 0; i < data.length; i++) {
+        sum += (data[i].value * 1);
     }
 
-    for(i = 0; i<mainChartResult.length; i++){
-        mainChartResult[i].percentage = Math.round(((mainChartResult[i].value * 100) / sum));
+    for(i = 0; i<data.length; i++){
+        data[i].percentage = Math.round(((data[i].value * 100) / sum));
     }
     
-    return mainChartResult;
+    return data;
 }
 
 module.exports = {
