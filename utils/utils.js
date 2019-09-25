@@ -28,13 +28,14 @@ function Utils(_url) {
     }
 }
 
-Utils.prototype.getUrls = function (callback, callback2) {
+Utils.prototype.getUrls = function (_url,callback, callback2) {
+    console.log('@@',_url)
     let urls = []
     let base = this;
     jsCrawler.crawl({
         url: this.url,
         success: function (page) {
-            if (page.url.match('https://www.glassdoor.co.in/Reviews/Travelex-Reviews-E23898_P3.htm')) {
+            if (page.url.match(_url)) {
                 urls.push({ url: page.url, content: page.content })
                 base.urls = urls;
                 callback(urls);
@@ -129,9 +130,9 @@ Utils.prototype.processRawData = function (callback) {
     }
 }
 
-Utils.prototype.process = function (callback) {
+Utils.prototype.process = function (_url,callback) {
     let base = this;
-    this.getUrls(urls => {
+    this.getUrls(_url,urls => {
         let data = base.parseContent();
         let options = {
             withDomLvl1: true,

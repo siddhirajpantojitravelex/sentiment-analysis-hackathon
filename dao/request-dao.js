@@ -6,6 +6,7 @@ var requestAPI = async (url, method, header, body) => {
             uri: url,
             method: method,
             headers: header,
+            strictSSL: false, 
             json: body
         }, (error, response, body) => {
             if (error) {
