@@ -38,16 +38,16 @@ async function sentimentUpdater(){
             const singleData = fetchedData[index];
             let dataFromGoogle = await googleapi.getValueForReview(singleData);
             let udpateJson = {
-                "reviewId": singleData.reviewId,
+                "review_id": singleData.review_id,
                 "description_value": dataFromGoogle.desc.score,
                 "description_magnitude": dataFromGoogle.desc.magnitude,
                 "pros_value": dataFromGoogle.pros.score,
                 "pros_magnitude": dataFromGoogle.pros.magnitude,
                 "cons_value": dataFromGoogle.cons.score,
                 "cons_magnitude": dataFromGoogle.cons.magnitude,
-                "result": ((this.description_value * this.description_magnitude)
-                    + (this.pros_value * this.pros_magnitude)
-                    + (this.cons_value * this.cons_magnitude))
+                "result": ((dataFromGoogle.desc.score * dataFromGoogle.desc.magnitude)
+                    + (dataFromGoogle.pros.score * dataFromGoogle.pros.magnitude)
+                    + (dataFromGoogle.cons.score * dataFromGoogle.cons.magnitude))
             }
             //update with the value
             let updateResult = await sentimentDao.updateSentiments(udpateJson);

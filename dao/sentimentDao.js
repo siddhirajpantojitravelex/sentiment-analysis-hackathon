@@ -52,8 +52,8 @@ async function updateSentiments(sentiment_info) {
                 reject(err)
             }
             else {
-                console.log("TCL: updateSentiments -> data", data.rows)
-                resolve(data.rows);
+                console.log("TCL: updateSentiments -> data", data.rowCount)
+                resolve(data.rowCount);
             }
         })
 

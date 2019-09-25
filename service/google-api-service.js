@@ -10,11 +10,10 @@ async function getValueForReview(review) {
         result.desc = descriptionValue;
         result.pros = proValue;
         result.cons = consValue;
-        console.log(result);
         return result;
     }
     catch (err) {
-        console.log("Error While Getting Google Reviews ", err);
+        console.log("Error While Getting Google Reviews ", JSON.stringify(err));
         throw err;
     }
 }
