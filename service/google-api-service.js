@@ -3,12 +3,14 @@ const googleApiDao = require('../dao/google-api')
 async function getValueForReview(review) {
     try {
         let result = {}
-        let descriptionValue = await googleApiDao.getSentimenetValue(review.description);
+        //console.log(JSON.stringify(review));
+        let descriptionValue = await googleApiDao.getSentimenetValue(review.review_description);
         let proValue = await googleApiDao.getSentimenetValue(review.pros);
         let consValue = await googleApiDao.getSentimenetValue(review.cons);
         result.desc = descriptionValue;
         result.pros = proValue;
         result.cons = consValue;
+        console.log(result);
         return result;
     }
     catch (err) {

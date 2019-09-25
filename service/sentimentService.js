@@ -35,8 +35,8 @@ async function sentimentUpdater(){
     try {
         let fetchedData = await sentimentDao.getSentimentsToProcess();
         for (let index = 0; index < fetchedData.length; index++) {
-            const element = fetchedData[index];
-            let dataFromGoogle = await googleapi.getValueForReview(element);
+            const singleData = fetchedData[index];
+            let dataFromGoogle = await googleapi.getValueForReview(singleData);
             let udpateJson = {
                 "reviewId": singleData.reviewId,
                 "description_value": dataFromGoogle.desc.score,
