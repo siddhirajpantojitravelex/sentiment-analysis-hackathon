@@ -39,7 +39,7 @@ async function getSentimentsToProcess() {
  * 4. Result = ( (description_value x desc_mag) + (pros_value x pros_magnitude) + (cons_value x cons_mag) )
  * 5. Call this method in Set Interval of 1 min from server.js or from anywhere 
  */
-function sentimentUpdater(){
+async function sentimentUpdater(){
     try {
         let fetchedData = await service.getSentimentsToProcess();
         fetchedData.forEach(singleData => {
