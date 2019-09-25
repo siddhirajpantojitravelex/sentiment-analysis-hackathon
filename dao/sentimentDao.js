@@ -9,7 +9,7 @@ async function insertIntoSentimentTable(sentiment_info) {
             }
             else {
                 for (let i = 0; i < sentiment_info.classification.length; i++) {
-                    db.query(queries.SENTIMENT_CLASSIFICATION.INSERT, [data.rows[0].review_id, sentiment_info.classification[i]], (err, classificationData) => {
+                    db.query(queries.SENTIMENT_CLASSIFICATION.INSERT, [data.rows[0].review_id, sentiment_info.classification[i].class,sentiment_info.classification[i].rating], (err, classificationData) => {
                         if (err) {
                             reject(err)
                         }
