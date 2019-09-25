@@ -1,0 +1,27 @@
+{
+    "date": "2019/04/02",
+    "title": "This is title222",
+    "description": "this is description",
+    "jobTitle": "this is job title",
+    "pros": "this is pros",
+    "cons": "this is cons",
+    "advice": "this is advice",
+    "classification": [
+        {
+            "class": "Work/life balance",
+            "rating": 5
+        },
+        {
+            "class": "Happiness",
+            "rating": 4
+        },
+        {
+            "class": "Culture & Values",
+            "rating": 5
+        },
+        {
+            "class": "Career Opportunities",
+            "rating": 3
+        }
+    ]
+}
