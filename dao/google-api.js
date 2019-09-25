@@ -16,6 +16,7 @@ async function getSentimenetValue(str) {
                 type: "PLAIN_TEXT"
             }
         }
+        console.log(body);
         let result = await  request.requestAPI(url, "POST", headers,body);
         console.log("Result ", result);
         return result.documentSentiment;

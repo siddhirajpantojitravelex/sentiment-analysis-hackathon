@@ -34,7 +34,7 @@ Utils.prototype.getUrls = function (callback, callback2) {
     jsCrawler.crawl({
         url: this.url,
         success: function (page) {
-            if (page.url.match('https://www.glassdoor.co.in/Reviews/Travelex-Reviews-E23898_P3.htm')) {
+            if (page.url.match('https://www.glassdoor.co.in/Reviews/Travelex-Reviews-E23898')) {
                 urls.push({ url: page.url, content: page.content })
                 base.urls = urls;
                 callback(urls);
