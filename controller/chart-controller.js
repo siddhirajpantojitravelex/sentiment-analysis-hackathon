@@ -68,7 +68,7 @@ async function chartData(req,res,next){
 		mainChartJson = {
 			'name': mainChartData.classification_description,
 			'value': mainChartData.percentage,
-			drilldown: chart.innerChartService(mainChartData.classification_description)
+			drilldown: await chart.innerChartService(mainChartData.classification_description)
 		}
 	}
 
