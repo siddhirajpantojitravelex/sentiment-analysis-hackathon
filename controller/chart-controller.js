@@ -64,7 +64,6 @@ async function chartData(req,res,next){
 	let mainChartJson = [];
 	for (let index = 0; index < percent.length; index++) {
 		const mainChartData = percent[index];
-		console.log("TCL: chartData -> mainChartData.classification_description", mainChartData.classification_description)
 		mainChartJson.push({
 			'name': mainChartData.classification_description,
 			'value': mainChartData.percentage,
