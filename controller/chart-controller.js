@@ -61,15 +61,15 @@ async function chartData(req,res,next){
 	mainChartResult = await chart.mainChartService();
 	
 	let percent  = chart.calculatePercentage(mainChartResult)
-	
+	let mainChartJson = [];
 	for (let index = 0; index < percent.length; index++) {
 		const mainChartData = percent[index];
 		console.log("TCL: chartData -> mainChartData.classification_description", mainChartData.classification_description)
-		const mainChartJson = {
+		mainChartJson.push({
 			'name': mainChartData.classification_description,
 			'value': mainChartData.percentage,
-			drilldown: chart.innerChartService(mainChartData.classification_description)
-		}
+			drilldown: await chart.innerChartService(mainChartData.classification_description)
+		})
 	}
 
 	res.status(200).json(mainChartJson);

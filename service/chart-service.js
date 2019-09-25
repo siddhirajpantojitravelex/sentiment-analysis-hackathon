@@ -24,10 +24,10 @@ async function innerChartService(classification_description) {
     try {
         result = await chartDao.getInnerGraphData(classification_description);
         //console.log("TCL: innerChartService -> result", result)
-        let innerChartJson;
+        let innerChartJson = [];
         for (let index = 0; index < result.length; index++) {
             const element = result[index];
-            innerChartJson = { "sentiment": element.category, "value": element.cnt }
+            innerChartJson.push({ "sentiment": element.category, "value": element.cnt })
         }
         console.log("TCL: innerChartService -> result", innerChartJson)
         
