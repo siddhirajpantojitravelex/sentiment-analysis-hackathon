@@ -1,99 +1,119 @@
 //$(function () {
-    // Create the chart
-      var chartData = [];
-    var options = {
-        chart: {
-            renderTo: 'container',
-            type: 'pie'
-        },
-        series: [],
-        drilldown: {}
-    }
+// Create the chart
+var chartData = [];
+var options = {
+    chart: {
+        renderTo: 'container',
+        type: 'pie'
+    },
+    series: [],
+    drilldown: {},
+    title: {
+        text: 'Glassdoor Review Sentiment Analysis '
+    },
+    subtitle: {
+        text: 'Click the slices to view Categories. Source: <a href="http://glassdoor.com" target="_blank">glassdoor.com</a>'
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+}
 
-    //     options.series.push({
-    //         name: 'John',
-    //         data: [3, 4, 2]
-    //     })
+//     options.series.push({
+//         name: 'John',
+//         data: [3, 4, 2]
+//     })
 
 
-    //     $(document).ready(function() {
-    //         var chart = new Highcharts.Chart(options);  
-    //         $.ajax({
-    //             url: baseURL + "/chart",
-    //             async: false
-    //         }).then(function (data) {
-    //             chartData = data;       
-    //             console.log("chartData ", chartData);    
-    //         });  
-    //         console.log("chartData outside ", chartData);        
-    //     });
+//     $(document).ready(function() {
+//         var chart = new Highcharts.Chart(options);  
+//         $.ajax({
+//             url: baseURL + "/chart",
+//             async: false
+//         }).then(function (data) {
+//             chartData = data;       
+//             console.log("chartData ", chartData);    
+//         });  
+//         console.log("chartData outside ", chartData);        
+//     });
 
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
         //document.getElementById("demo").innerHTML = this.responseText;
         //console.log("chartData ", JSON.parse(this.responseText));  
-        chartData = JSON.parse(this.responseText);  
-        }
-    };
-    xhttp.open("GET", baseURL + "/chart", false);
-    xhttp.send();
-
-    $(document).ready(function() {
-        console.log("chartData outside ", chartData);   
-        console.log("chartData outside ", chartData[0]);   
-        // chartData.forEach((item,index) => {
-        //     options.series.push({
-        //         name: "Classification",
-        //         data: [item]
-        //     })
-        // });
-            options.series.push({
-                name: "Classification",
-                data: getData()
-            })
-            //options.drilldown.seri
-        var chart = new Highcharts.Chart(options);
-        getDrillDownData();
-    });
-
-    function getData(){
-        var dataArray = [];
-        dataArr = [];
-        for (let i = 0; i < chartData.length; i++){
-            var name, data, drillData;
-            name = chartData[i].name;
-            data = chartData[i].value;
-            drillData = {'name':name, 'y':data, "drilldown": "chart"+i}
-            dataArr.push(drillData)
-        }
-        console.log("   dataArr",dataArr)
-        return dataArr;
+        chartData = JSON.parse(this.responseText);
     }
+};
+xhttp.open("GET", baseURL + "/chart", false);
+xhttp.send();
 
-    function getDrillDownData(){
-        var drillDownDataArry = [], drillAll;
-        for (let i = 0; i < chartData.length; i++){
-            var dataarray = [];
-            for (let j = 0; j < chartData[i].drilldown.length; j++){
-                var data = [];
-                data = [chartData[i].drilldown[j].sentiment, chartData[i].drilldown[j].value];
-                dataarray.push(data);
-            }
-          
-            drillDownData = {'id':"chart"+i, "data": dataarray}
-            drillAll ={
-                drilldown:{
-                    series: drillDownData
-                }
-            }
-            console.log(drillAll);
-            //drillDownDataArry.push(drillDownData);
-        }
-        //console.log("drillDownData ", drillDownDataArry);
-        //return drillDownDataArry;
-        return drillAll;    
+$(document).ready(function () {
+    console.log("chartData outside ", chartData);
+    // chartData.forEach((item,index) => {
+    //     options.series.push({
+    //         name: "Classification",
+    //         data: [item]
+    //     })
+    // });
+    let seriesData = getData();
+    console.log(seriesData)
+    options.series.push({
+        name: "Classification",
+        data: seriesData
+    })
+
+    let drillDown = getDrillDownData()
+   options.drilldown= {}
+   options.drilldown.series = drillDown.series
+
+   // options.drilldown.series = []
+    console.log( "Drill Down is here ",options.drilldown)
+   // console.log(options.series)
+    //console.log(getDrillDownData());
+    var chart = new Highcharts.Chart(options);
+});
+
+function getData() {
+    var dataArray = [];
+    dataArr = [];
+    for (let i = 0; i < chartData.length; i++) {
+        var name, data, drillData;
+        name = chartData[i].name;
+        data = chartData[i].value;
+        drillData = { 'name': name, 'y': data, "drilldown": "chart" + i }
+        dataArr.push(drillData)
     }
+    console.log("   dataArr", dataArr)
+    return dataArr;
+}
+
+function getDrillDownData() {
+    let drillAll  = {}
+    let series = [];
+    console.log(chartData.length)
+    for (let i = 0; i < chartData.length; i++) {
+        // For  Each Series element will be genrated here 
+        let seriesElement = {}
+        seriesElement.name = chartData[i].name
+        seriesElement.id = "chart" + i;
+        seriesElement.data = [];
+        
+        for (let j = 0; j < chartData[j].drilldown.length; j++) {
+            var data = [];
+            data = [chartData[i].drilldown[j].sentiment, parseFloat(chartData[i].drilldown[j].value)];
+            seriesElement.data.push(data);
+        }
+        series.push(seriesElement)
+        //seriesElement.data = dataarray
+        //drillDownDataArry.push(drillDownData);
+    }
+    drillAll.series = series
+    //console.log("drillDownData ", drillDownDataArry);
+    //return drillDownDataArry;
+    return drillAll;
+}
 
 
     // Highcharts.chart('container', {
@@ -159,116 +179,7 @@
     //         }
     //     ],
     //     drilldown: {
-    //         series: [
-    //             {
-    //                 name: "Work/Life Balance",
-    //                 id: "Chrome",
-    //                 data: [
-    //                     [
-    //                         "positive",
-    //                         30
-    //                     ],
-    //                     [
-    //                         "negative",
-    //                         60
-    //                     ],
-    //                     [
-    //                         "neutral",
-    //                         10
-    //                     ]
-    //                 ]
-    //             },
-    //             {
-    //                 name: "Culture & Values",
-    //                 id: "Firefox",
-    //                 data: [
-    //                     [
-    //                         "positive",
-    //                         30
-    //                     ],
-    //                     [
-    //                         "negative",
-    //                         60
-    //                     ],
-    //                     [
-    //                         "neutral",
-    //                         10
-    //                     ]
-    //                 ]
-    //             },
-    //             {
-    //                 name: "Career Opportunities",
-    //                 id: "Internet Explorer",
-    //                 data: [
-    //                     [
-    //                         "positive",
-    //                         30
-    //                     ],
-    //                     [
-    //                         "negative",
-    //                         60
-    //                     ],
-    //                     [
-    //                         "neutral",
-    //                         10
-    //                     ]
-    //                 ]
-    //             },
-    //             {
-    //                 name: "Compensation and Benefits",
-    //                 id: "Safari",
-    //                 data: [
-    //                     [
-    //                         "positive",
-    //                         30
-    //                     ],
-    //                     [
-    //                         "negative",
-    //                         60
-    //                     ],
-    //                     [
-    //                         "neutral",
-    //                         10
-    //                     ]
-    //                 ]
-    //             },
-    //             {
-    //                 name: "Senior Management",
-    //                 id: "Edge",
-    //                 data: [
-    //                     [
-    //                         "positive",
-    //                         30
-    //                     ],
-    //                     [
-    //                         "negative",
-    //                         60
-    //                     ],
-    //                     [
-    //                         "neutral",
-    //                         10
-    //                     ]
-    //                 ]
-    //             },
-    //             {
-    //                 name: "Current Employee - Anonymous Employee",
-    //                 id: "Opera",
-    //                 data: [
-    //                     [
-    //                         "positive",
-    //                         30
-    //                     ],
-    //                     [
-    //                         "negative",
-    //                         60
-    //                     ],
-    //                     [
-    //                         "neutral",
-    //                         10
-    //                     ]
-    //                 ]
-    //             }
-    //         ]
+            
     //     }
     // });
 //})

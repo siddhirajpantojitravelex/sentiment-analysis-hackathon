@@ -57,7 +57,7 @@ async function sentimentUpdater(){
     }
 }
 
-setInterval(sentimentUpdater,5000);
+//setInterval(sentimentUpdater,5000);
 //setTimeout(sentimentUpdater, 1000);
 
 module.exports = {
