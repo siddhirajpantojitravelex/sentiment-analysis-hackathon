@@ -1,20 +1,31 @@
 const service = require('../service/sentimentService');
 
+const data = require('../data/data.json')
 async function sentimentController(req, res, next) {
     try {
-        // var sentiment_info = {
-        //     date: '2019/04/02',
-        //     title: 'This is title222',
-        //     description: 'this is description',
-        //     jobTitle: 'this is job title',
-        //     pros: 'this is pros',
-        //     cons: 'this is cons',
-        //     advice: 'this is advice',
-        //     classification:['Work/life balance','Happiness','Culture & Values','Career Opportunities']
-        // };
-        //console.log(req.body);
-            result = await service.sentimentService(req.body);
-            res.status(result.status).json(result);
+        const dataArr = ["Work/Life Balance", "Career Opportunities", "Compensation and Benefits", "Senior Management", "Culture & Values"]
+        for (let i = 0; i < data.length; i++) {
+            let datasingle = data[i]
+            let classifications = datasingle.classifications;
+            if (classifications.length < 5) {
+                // Identiy and insert values as 0 
+                for (let j = 0; j < dataArr.length; j++) {
+                    let found = false
+                    for (let k = 0; k < classifications.length; k++) {
+                        if (classifications[k].class == dataArr[j]) {
+                            found = true
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        classifications.push({ class: dataArr[j], value: "0.0" })
+                    }
+                }
+            }
+            result = await service.sentimentService(datasingle);
+
+        }
+        res.status(result.status).json({ "message": "true" });
     }
     catch (err) {
         next(err);

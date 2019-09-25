@@ -46,8 +46,7 @@ async function sentimentUpdater(){
                 "pros_magnitude": dataFromGoogle.pros.magnitude,
                 "cons_value": dataFromGoogle.cons.score,
                 "cons_magnitude": dataFromGoogle.cons.magnitude,
-                "result": ((dataFromGoogle.desc.score * dataFromGoogle.desc.magnitude)
-                    + (dataFromGoogle.pros.score * dataFromGoogle.pros.magnitude)
+                "result": ((dataFromGoogle.pros.score * dataFromGoogle.pros.magnitude)
                     + (dataFromGoogle.cons.score * dataFromGoogle.cons.magnitude))
             }
             //update with the value
@@ -60,7 +59,7 @@ async function sentimentUpdater(){
     }
 }
 
-//setInterval(sentimentUpdater,5000); //this needs to be uncommented - William
+setInterval(sentimentUpdater,5000);
 //setTimeout(sentimentUpdater, 1000);
 
 module.exports = {

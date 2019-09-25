@@ -168,7 +168,28 @@
         "pros": "Pay is good, good people are leaving,",
         "cons": "Lot of unnecessary stress and politics.. Work culture is not good and management plays blame game and lower level employee suffers big time..  No planning and work is dump on lower level employee. Job security is an issue",
         "advice": "Please become people focus..  Instead of doing micro management trust your employees and you will see positive results",
-        "classifications": []
+        "classifications": [
+            {
+                "class": "Work/Life Balance",
+                "rating": "0.0"
+            },
+            {
+                "class": "Culture & Values",
+                "rating": "0.0"
+            },
+            {
+                "class": "Career Opportunities",
+                "rating": "0.0"
+            },
+            {
+                "class": "Compensation and Benefits",
+                "rating": "0.0"
+            },
+            {
+                "class": "Senior Management",
+                "rating": "0.0"
+            }
+        ]
     },
     {
         "index": 10,
@@ -659,7 +680,27 @@
         "pros": "Work life balance and flexible working hours\r\nGood salary compared to IT companies\r\nMost managers are understanding",
         "cons": "Technical debt means many people get stuck with old technology and repetitive tasks\r\nLess scope for internal promotions and growth",
         "advice": "Believe in your people to do challenging work and continue on transformation journey",
-        "classifications": []
+        "classifications": [
+		{
+                "class": "Work/Life Balance",
+                "rating": "0.0"
+            },
+            {
+                "class": "Culture & Values",
+                "rating": "0.0"
+            },
+            {
+                "class": "Career Opportunities",
+                "rating": "0.0"
+            },
+            {
+                "class": "Compensation and Benefits",
+                "rating": "0.0"
+            },
+            {
+                "class": "Senior Management",
+                "rating": "0.0"
+            }]
     },
     {
         "index": 4,
