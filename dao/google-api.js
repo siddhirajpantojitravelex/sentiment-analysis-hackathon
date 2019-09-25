@@ -1,6 +1,6 @@
 const request = require('./request-dao');
 
-await function getSentimenetValue(str) {
+async function getSentimenetValue(str) {
     try {
         const apiKey = process.env.GOOGLE_API_KEY;
         if (!apiKey) {

@@ -1,6 +1,6 @@
 const sentimentDao = require('../dao/sentimentDao');
 
-const googleapi = require('../service/google-api-service');
+const googleapi = require('./google-api-service');
 
 
 async function sentimentService(sentiment_info) {
@@ -34,23 +34,25 @@ async function sentimentService(sentiment_info) {
 async function sentimentUpdater(){
     try {
         let fetchedData = await sentimentDao.getSentimentsToProcess();
-        fetchedData.forEach(singleData => {
-            let dataFromGoogle = await googleapi.getValueForReview(singleData);
+        for (let index = 0; index < fetchedData.length; index++) {
+            const element = fetchedData[index];
+            let dataFromGoogle = await googleapi.getValueForReview(element);
             let udpateJson = {
                 "reviewId": singleData.reviewId,
-                "description_value": singleData.description_value,
-                "description_magnitude": singleData.description_magnitude,
-                "pros_value": singleData.pros_value,
-                "pros_magnitude": singleData.pros_magnitude,
-                "cons_value": singleData.cons_value,
-                "cons_magnitude": singleData.cons_magnitude,
-                "result": ((singleData.description_value * singleData.description_magnitude) 
-                    + (singleData.pros_value * singleData.pros_magnitude) 
-                    + (singleData.cons_value * singleData.cons_magnitude))
+                "description_value": dataFromGoogle.desc.score,
+                "description_magnitude": dataFromGoogle.desc.magnitude,
+                "pros_value": dataFromGoogle.pros.score,
+                "pros_magnitude": dataFromGoogle.pros.magnitude,
+                "cons_value": dataFromGoogle.cons.score,
+                "cons_magnitude": dataFromGoogle.cons.magnitude,
+                "result": ((this.description_value * this.description_magnitude)
+                    + (this.pros_value * this.pros_magnitude)
+                    + (this.cons_value * this.cons_magnitude))
             }
             //update with the value
             let updateResult = await sentimentDao.updateSentiments(udpateJson);
-        });
+        }
+        
     }
     catch (err) {
         console.log("TCL: sentimentUpdater -> err", err);
