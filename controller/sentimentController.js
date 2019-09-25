@@ -1,6 +1,6 @@
 const service = require('../service/sentimentService');
 
-const data = require('../service/data3.json')
+const data = require('../data/data.json')
 async function sentimentController(req, res, next) {
     try {
         const dataArr = ["Work/Life Balance", "Career Opportunities", "Compensation and Benefits", "Senior Management", "Culture & Values"]
