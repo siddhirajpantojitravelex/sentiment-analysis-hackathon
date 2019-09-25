@@ -54,9 +54,27 @@ const data = [
 	}
 ]
 
-function chartData(req,res,next){
-    res.status(200).json(data);
+const chart = require('../service/chart-service');
+
+async function chartData(req,res,next){
+
+	mainChartResult = await chart.mainChartService();
+	
+	let percent  = chart.calculatePercentage(mainChartResult)
+	
+	for (let index = 0; index < percent.length; index++) {
+		const mainChartData = percent[index];
+		console.log("TCL: chartData -> mainChartData.classification_description", mainChartData.classification_description)
+		const mainChartJson = {
+			'name': mainChartData.classification_description,
+			'value': mainChartData.percentage,
+			drilldown: chart.innerChartService(mainChartData.classification_description)
+		}
+	}
+
+	res.status(200).json(mainChartJson);
 }
+
 module.exports = {
     chartData
 }

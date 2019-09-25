@@ -1,6 +1,6 @@
 const request = require('./request-dao');
 
-await function getSentimenetValue(str) {
+async function getSentimenetValue(str) {
     try {
         const apiKey = process.env.GOOGLE_API_KEY;
         if (!apiKey) {
@@ -16,6 +16,7 @@ await function getSentimenetValue(str) {
                 type: "PLAIN_TEXT"
             }
         }
+        console.log(body);
         let result = await  request.requestAPI(url, "POST", headers,body);
         console.log("Result ", result);
         return result.documentSentiment;
