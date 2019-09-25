@@ -6,10 +6,10 @@ Highcharts.chart('container', {
       type: 'pie'
     },
     title: {
-      text: 'Browser market shares. January, 2018'
+      text: 'Glassdoor Review Sentiment Analysis '
     },
     subtitle: {
-      text: 'Click the slices to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+      text: 'Click the slices to view Categories. Source: <a href="http://glassdoor.com" target="_blank">glassdoor.com</a>'
     },
     plotOptions: {
       series: {
@@ -27,43 +27,38 @@ Highcharts.chart('container', {
   
     series: [
       {
-        name: "Browsers",
+        name: "Classification",
         colorByPoint: true,
         data: [
           {
-            name: "Chrome",
+            name: "Work/Life Balance",
             y: 62.74,
             drilldown: "Chrome"
           },
           {
-            name: "Firefox",
+            name: "Culture & Values",
             y: 10.57,
             drilldown: "Firefox"
           },
           {
-            name: "Internet Explorer",
+            name: "Career Opportunities",
             y: 7.23,
             drilldown: "Internet Explorer"
           },
           {
-            name: "Safari",
+            name: "Compensation and Benefits",
             y: 5.58,
             drilldown: "Safari"
           },
           {
-            name: "Edge",
+            name: "Senior Management",
             y: 4.02,
             drilldown: "Edge"
           },
           {
-            name: "Opera",
+            name: "Current Employee - Anonymous Employee",
             y: 1.92,
             drilldown: "Opera"
-          },
-          {
-            name: "Other",
-            y: 7.62,
-            drilldown: null
           }
         ]
       }
@@ -71,80 +66,20 @@ Highcharts.chart('container', {
     drilldown: {
       series: [
         {
-          name: "Chrome",
+          name: "Work/Life Balance",
           id: "Chrome",
           data: [
             [
-              "v65.0",
-              0.1
+              "positive",
+              30
             ],
             [
-              "v64.0",
-              1.3
+              "negative",
+              60
             ],
             [
-              "v63.0",
-              53.02
-            ],
-            [
-              "v62.0",
-              1.4
-            ],
-            [
-              "v61.0",
-              0.88
-            ],
-            [
-              "v60.0",
-              0.56
-            ],
-            [
-              "v59.0",
-              0.45
-            ],
-            [
-              "v58.0",
-              0.49
-            ],
-            [
-              "v57.0",
-              0.32
-            ],
-            [
-              "v56.0",
-              0.29
-            ],
-            [
-              "v55.0",
-              0.79
-            ],
-            [
-              "v54.0",
-              0.18
-            ],
-            [
-              "v51.0",
-              0.13
-            ],
-            [
-              "v49.0",
-              2.16
-            ],
-            [
-              "v48.0",
-              0.13
-            ],
-            [
-              "v47.0",
-              0.11
-            ],
-            [
-              "v43.0",
-              0.17
-            ],
-            [
-              "v29.0",
-              0.26
+              "neutral",
+              10
             ]
           ]
         },
