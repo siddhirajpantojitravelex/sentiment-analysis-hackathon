@@ -40,8 +40,6 @@ async function sentimentUpdater(){
             let dataFromGoogle = await googleapi.getValueForReview(singleData);
             let udpateJson = {
                 "review_id": singleData.review_id,
-                "description_value": dataFromGoogle.desc.score,
-                "description_magnitude": dataFromGoogle.desc.magnitude,
                 "pros_value": dataFromGoogle.pros.score,
                 "pros_magnitude": dataFromGoogle.pros.magnitude,
                 "cons_value": dataFromGoogle.cons.score,

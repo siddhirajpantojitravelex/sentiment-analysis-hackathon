@@ -46,7 +46,7 @@ async function getSentimentsToProcess() {
  */
 async function updateSentiments(sentiment_info) {
     return new Promise((resolve, reject) => {
-        let parameters = [sentiment_info.review_id, sentiment_info.description_value, sentiment_info.description_magnitude, sentiment_info.pros_value, sentiment_info.pros_magnitude, sentiment_info.cons_value, sentiment_info.cons_magnitude, sentiment_info.result]
+        let parameters = [sentiment_info.review_id, sentiment_info.pros_value, sentiment_info.pros_magnitude, sentiment_info.cons_value, sentiment_info.cons_magnitude, sentiment_info.result]
         db.query(queries.SENTIMENT.UPDATE, parameters , (err, data) => {
             if (err) {
                 reject(err)
