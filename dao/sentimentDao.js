@@ -13,19 +13,23 @@ async function insertIntoSentimentTable(sentiment_info) {
                         if (err) {
                             reject(err)
                         }
-                        // else {
-                        //     console.log(classificationData.rows);
-                        // }
+                        else{
+                            resolve(data.rows);
+                        }
                     })
                 }
-                resolve(data.rows);
+                
             }
         })
 
     })
 }
+/**
+ * Function to get array of 
+ */
+async function getSentimentToCheck(){
 
-
+}
 module.exports = {
     insertIntoSentimentTable
 }

@@ -18,7 +18,7 @@ await function getSentimenetValue(str) {
         }
         let result = await  request.requestAPI(url, "POST", headers,body);
         console.log("Result ", result);
-        return result;
+        return result.documentSentiment;
     }
     catch(err){
         console.error("Error ")

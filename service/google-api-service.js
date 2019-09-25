@@ -1,0 +1,22 @@
+const googleApiDao = require('../dao/google-api')
+
+async function getValueForReview(review) {
+    try {
+        let result = {}
+        let descriptionValue = await googleApiDao.getSentimenetValue(review.description);
+        let proValue = await googleApiDao.getSentimenetValue(review.pros);
+        let consValue = await googleApiDao.getSentimenetValue(review.cons);
+        result.desc = descriptionValue;
+        result.pros = proValue;
+        result.cons = consValue;
+        return result;
+    }
+    catch (err) {
+        console.log("Error While Getting Google Reviews ", err);
+        throw err;
+    }
+}
+
+module.exports = {
+    getValueForReview
+}
