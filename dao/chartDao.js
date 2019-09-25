@@ -27,7 +27,7 @@ async function getInnerGraphData(classification_description) {
                 reject(err)
             }
             else {
-                resolve(data.rowCount);
+                resolve(data.rows);
             }
         })
 
