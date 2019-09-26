@@ -20,6 +20,42 @@ var options = {
     },
 }
 
+let barchartOptions = {
+    chart: {
+        renderTo: 'bar_chart',
+        type: 'column'
+    },
+    series: [],
+    drilldown: {},
+    title: {
+        text: ''
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Rating in Percentage '
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+}
 //     options.series.push({
 //         name: 'John',
 //         data: [3, 4, 2]
@@ -63,16 +99,22 @@ $(document).ready(function () {
         name: "Classification",
         data: seriesData
     })
-
+    barchartOptions.series.push({
+        name: "Classification",
+        data: seriesData
+    })
     let drillDown = getDrillDownData()
-   options.drilldown= {}
-   options.drilldown.series = drillDown.series
-
-   // options.drilldown.series = []
-    console.log( "Drill Down is here ",options.drilldown)
-   // console.log(options.series)
+    options.drilldown = {}
+    options.drilldown.series = drillDown.series
+    barchartOptions.drilldown = {}
+    barchartOptions.drilldown.series = drillDown.series;
+    // options.drilldown.series = []
+    console.log("Drill Down is here ", options.drilldown)
+    // console.log(options.series)
     //console.log(getDrillDownData());
     var chart = new Highcharts.Chart(options);
+    var bar = new Highcharts.Chart(barchartOptions)
+
 });
 
 function getData() {
@@ -90,7 +132,7 @@ function getData() {
 }
 
 function getDrillDownData() {
-    let drillAll  = {}
+    let drillAll = {}
     let series = [];
     console.log(chartData.length)
     for (let i = 0; i < chartData.length; i++) {
@@ -99,7 +141,7 @@ function getDrillDownData() {
         seriesElement.name = chartData[i].name
         seriesElement.id = "chart" + i;
         seriesElement.data = [];
-        
+
         for (let j = 0; j < chartData[j].drilldown.length; j++) {
             var data = [];
             data = [chartData[i].drilldown[j].sentiment, parseFloat(chartData[i].drilldown[j].value)];
@@ -179,7 +221,7 @@ function getDrillDownData() {
     //         }
     //     ],
     //     drilldown: {
-            
+
     //     }
     // });
 //})

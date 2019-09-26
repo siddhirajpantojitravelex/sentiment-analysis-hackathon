@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Glassdoor Review Sentiment Analysis </title>
+    <!-- Bootstrap core CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Page level plugin CSS-->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
 </head>
@@ -16,7 +22,15 @@
     <script src="https://code.highcharts.com/modules/drilldown.js"></script>
     <script src="./js/constants.js"></script>
     <script src="./pie-chart.js"></script>
-    <div id="container" style="min-width: 310px; max-width: 650px; height: 500px; margin: 0 auto"></div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div id="container" style="min-width: 310px; max-width: 650px; height: 500px; margin: 0 auto"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="bar_chart" style="min-width: 310px; max-width: 650px; height: 500px; margin: 0 auto"></div>
+        </div>
+    </div>
+
 </body>
 
 </html>
