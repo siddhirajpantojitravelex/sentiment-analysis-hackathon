@@ -23,9 +23,11 @@ async function innerChartService(classification_description) {
     var result;
     try {
         result = await chartDao.getInnerGraphData(classification_description);
+        console.log("Result = ",result)
         let percent = calculatePercentage(result)
+        console.log("Percentage = ", percent)
         let innerChartJson = [];
-        for (let index = 0; index < percent.length; index++) {
+        for (var index = 0; index < percent.length; index++) {
             const element = percent[index];
             innerChartJson.push({ "sentiment": element.category, "value": element.percentage })
         }

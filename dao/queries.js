@@ -22,8 +22,8 @@ const QUERIES = {
         DELETE: 'DELETE FROM SENTIMENT WHERE review_id = $1 returning * ',
         UPDATE: 'DELETE FROM SENTIMENT WHERE review_id = $1 returning * ',
         MAGIC_WORD_EXISTS: 'Select count(*) from SENTIMENT  where review_id = $1',
-        MAIN_GRAPH: 'SELECT AVG(classification_rating)as value, classification_description FROM SENTIMENT_CLASSIFICATION GROUP BY classification_description',
-        INNER_GRAPH: "SELECT COUNT(*) as value, (case when result > 0.5 then 'Positive' when result <0 then 'Negative' else 'Neutral'  end ) as category FROM sentiment where review_id in ( SELECT review_classification_id from sentiment_classification where classification_description = $1 ) group by category "
+        MAIN_GRAPH: 'SELECT AVG(classification_rating)as value, classification_description FROM SENTIMENT_CLASSIFICATION GROUP BY classification_description order by value desc  ',
+        INNER_GRAPH: "SELECT COUNT(*) as value, (case when result > 0.5 then 'Positive' when result <0 then 'Negative' else 'Neutral'  end ) as category FROM sentiment where review_id in ( SELECT review_classification_id from sentiment_classification where classification_description = $1 and classification_rating!=0 ) group by category order by value desc "
     }
 };
 
