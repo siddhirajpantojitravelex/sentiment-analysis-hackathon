@@ -101,6 +101,7 @@ $(document).ready(function () {
     })
     barchartOptions.series.push({
         name: "Classification",
+        colorByPoint: true,
         data: seriesData
     })
     let drillDown = getDrillDownData()
@@ -127,7 +128,7 @@ function getData() {
         drillData = { 'name': name, 'y': data, "drilldown": "chart" + i }
         dataArr.push(drillData)
     }
-    console.log("   dataArr", dataArr)
+    console.log("       dataArr", dataArr)
     return dataArr;
 }
 
